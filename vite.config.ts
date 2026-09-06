@@ -24,33 +24,36 @@ export default defineConfig({
     tailwind(),
     {
       name: "prototype-build-identity",
-      generateBundle(_options, bundle) {
-        const outputs = Object.fromEntries(
-          Object.entries(bundle).map(([name, output]) => [
-            name,
-            createHash("sha256")
-              .update(output.type === "chunk" ? output.code : output.source)
-              .digest("hex"),
-          ]),
-        );
-        this.emitFile({
-          type: "asset",
-          fileName: "review-source.json",
-          source: JSON.stringify(
-            {
-              schemaVersion: 1,
-              repository: "yerzhansa/enduragent-prototypes",
-              revision,
-              dirty,
-              uiVersion,
-              uiContentSha256: ui.contentSha256,
-              lockfileSha256,
-              outputs,
-            },
-            null,
-            2,
-          ),
-        });
+      generateBundle: {
+        order: "post",
+        handler(_options, bundle) {
+          const outputs = Object.fromEntries(
+            Object.entries(bundle).map(([name, output]) => [
+              name,
+              createHash("sha256")
+                .update(output.type === "chunk" ? output.code : output.source)
+                .digest("hex"),
+            ]),
+          );
+          this.emitFile({
+            type: "asset",
+            fileName: "review-source.json",
+            source: JSON.stringify(
+              {
+                schemaVersion: 1,
+                repository: "yerzhansa/enduragent-prototypes",
+                revision,
+                dirty,
+                uiVersion,
+                uiContentSha256: ui.contentSha256,
+                lockfileSha256,
+                outputs,
+              },
+              null,
+              2,
+            ),
+          });
+        },
       },
     },
   ],
