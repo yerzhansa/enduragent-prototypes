@@ -233,4 +233,12 @@ function App() {
 
 const root = document.getElementById("root");
 if (root === null) throw new Error("Prototype root is missing");
-createRoot(root).render(<App />);
+createRoot(root).render(
+  location.pathname === "/experiments/day-review" ? (
+    <App />
+  ) : (
+    <Page title="Page not found">
+      <p>This experiment is not available at this address.</p>
+    </Page>
+  ),
+);

@@ -174,3 +174,19 @@ test("day select portal fits and restores keyboard focus", async ({ page }, test
   await expect(day).toBeFocused();
   await expect(page.getByRole("listbox")).toBeHidden();
 });
+
+test("unknown routes do not expose the experiment", async ({ page }) => {
+  for (const path of [
+    "/",
+    "/unknown",
+    "/experiments/unknown",
+    "/experiments/day-review/",
+    "/experiments/day-review/extra",
+  ]) {
+    await page.goto(`${path}?scenario=review`);
+    await expect(page.getByRole("heading", { name: "Page not found" })).toBeVisible();
+    await expect(page.getByRole("combobox")).toHaveCount(0);
+    await expect(page.getByRole("dialog")).toHaveCount(0);
+    await expect(page.getByRole("button", { name: "Review", exact: true })).toHaveCount(0);
+  }
+});

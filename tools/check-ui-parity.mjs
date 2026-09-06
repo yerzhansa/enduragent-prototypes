@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, realpathSync } from "node:fs";
 import { dirname, join, relative, resolve } from "node:path";
 import { parse } from "yaml";
 import { uiIdentity, validateUiRelease } from "./ui-identity.mjs";
@@ -8,7 +8,10 @@ const allowLocal = arguments_.includes("--allow-local");
 const directories = arguments_.filter((argument) => argument !== "--allow-local");
 if (directories.length !== 1)
   throw new Error("Usage: pnpm check:ui-parity <other-consumer-directory> [--allow-local]");
-const consumers = [process.cwd(), resolve(directories[0])];
+const consumers = [process.cwd(), resolve(directories[0])].map((directory) =>
+  realpathSync(directory),
+);
+if (consumers[0] === consumers[1]) throw new Error("UI parity requires two distinct consumers");
 const identities = consumers.map(uiIdentity);
 if (!allowLocal) {
   for (const consumer of consumers) {

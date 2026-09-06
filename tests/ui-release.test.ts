@@ -1,7 +1,7 @@
 import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { stringify } from "yaml";
-import { mkdtempSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
+import { mkdtempSync, mkdirSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
@@ -226,4 +226,15 @@ it("requires the explicit local flag to bypass release validation", () => {
     encoding: "utf8",
   });
   expect(JSON.parse(result)).toMatchObject({ parity: "verified", localValidation: true });
+});
+
+it("rejects comparison with the same consumer, including symlink aliases", () => {
+  const consumer = consumerFixture(url);
+  const alias = join(consumer, "alias");
+  symlinkSync(consumer, alias, "dir");
+  for (const target of [".", consumer, alias]) {
+    expect(() =>
+      execFileSync(process.execPath, [parityCommand, target], { cwd: consumer, stdio: "pipe" }),
+    ).toThrow("UI parity requires two distinct consumers");
+  }
 });

@@ -28,7 +28,16 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm check
-      - run: pnpm check:ui-parity .
+      - name: Check out pinned application consumer
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+        with:
+          repository: yerzhansa/enduragent
+          ref: 8ae38056727383d4b66261f6d905263c140bc61a
+          path: .parity/enduragent
+          persist-credentials: false
+      - name: Install pinned application consumer
+        run: pnpm --dir .parity/enduragent --filter @enduragent/desktop-renderer... install --frozen-lockfile --ignore-scripts
+      - run: pnpm check:ui-parity .parity/enduragent/apps/desktop-renderer
       - run: pnpm build
       - run: pnpm exec playwright install --with-deps chromium
       - name: Record browser environment
