@@ -1,0 +1,46 @@
+{
+  "name": "enduragent-prototypes",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "check": "tsc --noEmit && oxlint src tests tools && oxfmt --check src tests tools vite.config.ts playwright.config.ts && vitest run && node tools/check-boundaries.mjs",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "check:ui-parity": "node tools/check-ui-parity.mjs"
+  },
+  "dependencies": {
+    "@enduragent/ui": "https://github.com/yerzhansa/enduragent-ui/releases/download/v0.1.0/enduragent-ui-0.1.0.tgz",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.62.1",
+    "@tailwindcss/vite": "4.3.3",
+    "@types/node": "25.6.0",
+    "@types/react": "19.2.17",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "5.2.0",
+    "oxfmt": "0.45.0",
+    "oxlint": "1.60.0",
+    "tailwindcss": "4.3.3",
+    "typescript": "6.0.2",
+    "vite": "7.3.6",
+    "vitest": "4.1.5",
+    "yaml": "2.9.0"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": "^24.19.0",
+      "onFail": "download"
+    }
+  },
+  "packageManager": "pnpm@11.24.0"
+}

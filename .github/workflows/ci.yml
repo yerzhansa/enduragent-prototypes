@@ -1,0 +1,76 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm check
+      - name: Check out pinned application consumer
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+        with:
+          repository: yerzhansa/enduragent
+          ref: 8ae38056727383d4b66261f6d905263c140bc61a
+          path: .parity/enduragent
+          persist-credentials: false
+      - name: Install pinned application consumer
+        run: pnpm --dir .parity/enduragent --filter @enduragent/desktop-renderer... install --frozen-lockfile --ignore-scripts
+      - run: pnpm check:ui-parity .parity/enduragent/apps/desktop-renderer
+      - run: pnpm build
+      - run: pnpm exec playwright install --with-deps chromium
+      - name: Record browser environment
+        run: |
+          pnpm exec node --input-type=module <<'NODE'
+          import { writeFileSync } from 'node:fs';
+          import { release } from 'node:os';
+          import { chromium } from '@playwright/test';
+          const browser = await chromium.launch();
+          try {
+            writeFileSync('dist/review-environment.json', JSON.stringify({ platform: process.platform, architecture: process.arch, osRelease: release(), node: process.version, browser: browser.version() }, null, 2));
+          } finally {
+            await browser.close();
+          }
+          NODE
+      - run: pnpm test:e2e
+      - name: Retain review identity
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: prototype-review-identity
+          path: |
+            dist/review-source.json
+            dist/review-environment.json
+          retention-days: 14
+          if-no-files-found: ignore
+      - name: Retain browser failure evidence
+        if: failure()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: prototype-browser-failures
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 14
+          if-no-files-found: ignore
