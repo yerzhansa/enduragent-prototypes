@@ -13,7 +13,7 @@
     "check:ui-parity": "node tools/check-ui-parity.mjs"
   },
   "dependencies": {
-    "@enduragent/ui": "https://github.com/yerzhansa/enduragent-ui/releases/download/v0.1.0/enduragent-ui-0.1.0.tgz",
+    "@enduragent/ui": "https://github.com/yerzhansa/enduragent-ui/releases/download/v0.2.0/enduragent-ui-0.2.0.tgz",
     "react": "19.2.8",
     "react-dom": "19.2.8"
   },

@@ -30,6 +30,11 @@ import {
   type Scenario,
 } from "./day-review";
 
+import { ExperimentNavigation, ExperimentShell } from "./experiment-shell";
+import { ChatExperiment } from "./chat-experiment";
+import { TrainingExperiment } from "./training-experiment";
+import { PlanExperiment } from "./plan-experiment";
+
 declare const __UI_VERSION__: string;
 declare const __SOURCE_REVISION__: string;
 
@@ -81,6 +86,7 @@ function App() {
 
   return (
     <main className="flex min-w-0 flex-1 flex-col bg-bg text-ink">
+      <ExperimentNavigation />
       <div
         className="flex flex-wrap items-center gap-3 border-b border-line px-5 py-3"
         aria-label="Experiment controls"
@@ -236,6 +242,18 @@ if (root === null) throw new Error("Prototype root is missing");
 createRoot(root).render(
   location.pathname === "/experiments/day-review" ? (
     <App />
+  ) : location.pathname === "/experiments/chat" ? (
+    <ExperimentShell title="Chat">
+      <ChatExperiment />
+    </ExperimentShell>
+  ) : location.pathname === "/experiments/training" ? (
+    <ExperimentShell title="Training">
+      <TrainingExperiment />
+    </ExperimentShell>
+  ) : location.pathname === "/experiments/plan-in-chat" ? (
+    <ExperimentShell title="Plan-in-Chat">
+      <PlanExperiment />
+    </ExperimentShell>
   ) : (
     <Page title="Page not found">
       <p>This experiment is not available at this address.</p>
