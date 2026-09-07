@@ -26,6 +26,7 @@
     "@vitejs/plugin-react": "5.2.0",
     "oxfmt": "0.45.0",
     "oxlint": "1.60.0",
+    "pngjs": "7.0.0",
     "tailwindcss": "4.3.3",
     "typescript": "6.0.2",
     "vite": "7.3.6",

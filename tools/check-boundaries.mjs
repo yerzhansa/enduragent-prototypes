@@ -1,6 +1,7 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { resolve, relative, dirname } from "node:path";
 import ts from "typescript";
+import { checkPlanCatalogue } from "./check-plan-catalogue.mjs";
 
 const root = resolve("src");
 const allowedPackages = new Set(["react", "react-dom/client", "@enduragent/ui"]);
@@ -64,5 +65,9 @@ function visitDirectory(directory) {
   }
 }
 visitDirectory(root);
+checkPlanCatalogue(
+  resolve("experiments/plan-in-chat"),
+  JSON.parse(readFileSync(new URL("./plan-parity/source-identity.json", import.meta.url), "utf8")),
+);
 if (failures.length) throw new Error(failures.join("\n"));
 process.stdout.write("Prototype source boundaries verified\n");

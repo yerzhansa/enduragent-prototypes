@@ -1,0 +1,855 @@
+[
+  {
+    "id": "journey-manual-dirty-reload",
+    "scenario": "custom-answer",
+    "steps": [
+      {
+        "kind": "fill",
+        "selector": "#field-name",
+        "value": "Meadow endurance ride"
+      },
+      {
+        "kind": "fill",
+        "selector": "#field-date",
+        "value": "1998-11-15"
+      },
+      {
+        "kind": "reload"
+      }
+    ]
+  },
+  {
+    "id": "journey-manual-required-validation",
+    "scenario": "custom-answer",
+    "steps": [
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Continue\")"
+      }
+    ]
+  },
+  {
+    "id": "journey-manual-recorded",
+    "scenario": "custom-answer",
+    "steps": [
+      {
+        "kind": "fill",
+        "selector": "#field-name",
+        "value": "Meadow endurance ride"
+      },
+      {
+        "kind": "fill",
+        "selector": "#field-date",
+        "value": "1998-11-15"
+      },
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Continue\")"
+      }
+    ]
+  },
+  {
+    "id": "journey-manual-later-plan-continue",
+    "scenario": "custom-answer",
+    "steps": [
+      {
+        "kind": "fill",
+        "selector": "#field-name",
+        "value": "Meadow endurance ride"
+      },
+      {
+        "kind": "fill",
+        "selector": "#field-date",
+        "value": "1998-11-15"
+      },
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Later\")"
+      },
+      {
+        "kind": "click",
+        "selector": ".nav-item:text-is(\"Plan\")"
+      },
+      {
+        "kind": "reload"
+      },
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Continue in Chat\")"
+      }
+    ]
+  },
+  {
+    "id": "journey-success-authored",
+    "scenario": "success-question",
+    "variation": "fitness",
+    "steps": [
+      {
+        "kind": "click",
+        "selector": "[data-editor-trigger=\"success\"]"
+      },
+      {
+        "kind": "fill",
+        "selector": "#field-success",
+        "value": "Ride steadily and finish feeling strong."
+      },
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Continue\")"
+      }
+    ]
+  },
+  {
+    "id": "journey-restriction-dirty",
+    "scenario": "restrictions-question",
+    "steps": [
+      {
+        "kind": "select",
+        "selector": "#field-kind",
+        "value": "max-duration"
+      },
+      {
+        "kind": "fill",
+        "selector": "#field-minutes",
+        "value": "45"
+      },
+      {
+        "kind": "fill",
+        "selector": "#field-end",
+        "value": "1998-09-02"
+      },
+      {
+        "kind": "reload"
+      }
+    ]
+  },
+  {
+    "id": "journey-restriction-range-validation",
+    "scenario": "restrictions-question",
+    "steps": [
+      {
+        "kind": "select",
+        "selector": "#field-kind",
+        "value": "max-duration"
+      },
+      {
+        "kind": "fill",
+        "selector": "#field-minutes",
+        "value": "0"
+      },
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Continue\")"
+      }
+    ]
+  },
+  {
+    "id": "journey-restriction-ready-build",
+    "scenario": "restrictions-question",
+    "steps": [
+      {
+        "kind": "select",
+        "selector": "#field-kind",
+        "value": "no-hard-training"
+      },
+      {
+        "kind": "fill",
+        "selector": "#field-end",
+        "value": "1998-09-02"
+      },
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Continue\")"
+      }
+    ]
+  },
+  {
+    "id": "journey-resume-chat-continue",
+    "scenario": "resume",
+    "steps": [
+      {
+        "kind": "fill",
+        "selector": "#coach-composer",
+        "value": "Hello coach"
+      },
+      {
+        "kind": "click",
+        "selector": "[aria-label=\"Send message\"]"
+      },
+      {
+        "kind": "reload"
+      },
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Continue in Chat\")"
+      }
+    ]
+  },
+  {
+    "id": "journey-edit-hub",
+    "scenario": "edit-answer",
+    "steps": [
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Edit answers\")"
+      }
+    ]
+  },
+  {
+    "id": "journey-edit-back-answers",
+    "scenario": "edit-answer",
+    "steps": [
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Edit answers\")"
+      },
+      {
+        "kind": "click",
+        "selector": "[aria-label=\"Edit Training restriction\"]"
+      },
+      {
+        "kind": "select",
+        "selector": "#field-kind",
+        "value": "max-duration"
+      },
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Back to answers\")"
+      }
+    ]
+  },
+  {
+    "id": "journey-edit-escape",
+    "scenario": "edit-answer",
+    "steps": [
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Edit answers\")"
+      },
+      {
+        "kind": "click",
+        "selector": "[aria-label=\"Edit Success\"]"
+      },
+      {
+        "kind": "click",
+        "selector": "[data-editor-trigger=\"success\"]"
+      },
+      {
+        "kind": "fill",
+        "selector": "#field-success",
+        "value": "Unconfirmed revision"
+      },
+      {
+        "kind": "press",
+        "selector": "#field-success",
+        "key": "Escape"
+      }
+    ]
+  },
+  {
+    "id": "journey-edit-stale-draft",
+    "scenario": "edit-answer",
+    "steps": [
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Edit answers\")"
+      },
+      {
+        "kind": "click",
+        "selector": "[aria-label=\"Edit Training restriction\"]"
+      },
+      {
+        "kind": "select",
+        "selector": "#field-kind",
+        "value": "max-duration"
+      },
+      {
+        "kind": "fill",
+        "selector": "#field-minutes",
+        "value": "45"
+      },
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Continue\")"
+      }
+    ]
+  },
+  {
+    "id": "journey-build-checkpoint",
+    "scenario": "building",
+    "steps": [
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Next build checkpoint\")"
+      }
+    ]
+  },
+  {
+    "id": "journey-build-navigation-resume",
+    "scenario": "building",
+    "steps": [
+      {
+        "kind": "click",
+        "selector": ".nav-item:text-is(\"Plan\")"
+      },
+      {
+        "kind": "reload"
+      },
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Continue in Chat\")"
+      },
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Next build checkpoint\")"
+      }
+    ]
+  },
+  {
+    "id": "journey-build-finished",
+    "scenario": "building",
+    "steps": [
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Finish fixture build\")"
+      }
+    ]
+  },
+  {
+    "id": "journey-rebuild-failed-build",
+    "scenario": "rebuild-failures",
+    "variation": "build",
+    "steps": [
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Rebuild Draft\")"
+      },
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Finish fixture build\")"
+      }
+    ]
+  },
+  {
+    "id": "journey-rebuild-failed-translation",
+    "scenario": "rebuild-failures",
+    "variation": "translation",
+    "steps": [
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Rebuild Draft\")"
+      },
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Finish fixture build\")"
+      }
+    ]
+  },
+  {
+    "id": "journey-rebuild-failed-validation",
+    "scenario": "rebuild-failures",
+    "variation": "validation",
+    "steps": [
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Rebuild Draft\")"
+      },
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Finish fixture build\")"
+      }
+    ]
+  },
+  {
+    "id": "journey-rebuild-failed-interruption",
+    "scenario": "rebuild-failures",
+    "variation": "interruption",
+    "steps": [
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Rebuild Draft\")"
+      },
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Finish fixture build\")"
+      }
+    ]
+  },
+  {
+    "id": "journey-rebuild-retry",
+    "scenario": "rebuild-failures",
+    "variation": "build",
+    "steps": [
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Rebuild Draft\")"
+      },
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Finish fixture build\")"
+      },
+      {
+        "kind": "select",
+        "selector": "#failure-select",
+        "value": "none"
+      },
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Rebuild Draft\")"
+      },
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Finish fixture build\")"
+      }
+    ]
+  },
+  {
+    "id": "journey-discard-escape-focus",
+    "scenario": "discard-confirm",
+    "steps": [
+      {
+        "kind": "press",
+        "selector": "[data-dialog-cancel]",
+        "key": "Escape"
+      }
+    ]
+  },
+  {
+    "id": "journey-discard-reopen-focus-cycle",
+    "scenario": "discard-confirm",
+    "steps": [
+      {
+        "kind": "press",
+        "selector": "[data-dialog-cancel]",
+        "key": "Escape"
+      },
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Discard\")"
+      },
+      {
+        "kind": "press",
+        "selector": "[data-dialog-cancel]",
+        "key": "Shift+Tab"
+      }
+    ]
+  },
+  {
+    "id": "journey-discard-result",
+    "scenario": "discard-confirm",
+    "steps": [
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Discard creation\")"
+      }
+    ]
+  },
+  {
+    "id": "journey-activation-cancel-focus",
+    "scenario": "activate-confirm",
+    "steps": [
+      {
+        "kind": "press",
+        "selector": "[data-dialog-cancel]",
+        "key": "Escape"
+      }
+    ]
+  },
+  {
+    "id": "journey-activation-confirmed",
+    "scenario": "activate-confirm",
+    "steps": [
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Activate new Plan\")"
+      }
+    ]
+  },
+  {
+    "id": "journey-first-activation-dialog",
+    "scenario": "first-activation",
+    "steps": [
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Activate Plan\")"
+      }
+    ]
+  },
+  {
+    "id": "journey-activation-failure-attempt",
+    "scenario": "activation-failure",
+    "steps": [
+      {
+        "kind": "click",
+        "selector": "[role=\"dialog\"] button.primary"
+      }
+    ]
+  },
+  {
+    "id": "journey-calendar-retry",
+    "scenario": "calendar-failure",
+    "steps": [
+      {
+        "kind": "click",
+        "selector": "[role=\"dialog\"] button.primary"
+      },
+      {
+        "kind": "select",
+        "selector": "#failure-select",
+        "value": "none"
+      },
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Retry calendar\")"
+      }
+    ]
+  },
+  {
+    "id": "journey-change-source",
+    "scenario": "plan-change",
+    "steps": [
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"View evidence\")"
+      }
+    ]
+  },
+  {
+    "id": "journey-draft-disclosures",
+    "scenario": "draft-review",
+    "variation": "fixed",
+    "steps": [
+      {
+        "kind": "click",
+        "selector": "summary:text-is(\"Already taken into account\")"
+      },
+      {
+        "kind": "click",
+        "selector": "summary:text-is(\"How this Plan was built\")"
+      }
+    ]
+  },
+  {
+    "id": "journey-context-toggle",
+    "scenario": "creation-start",
+    "steps": [
+      {
+        "kind": "click",
+        "selector": "#context-toggle"
+      }
+    ]
+  },
+  {
+    "id": "journey-change-reload-return",
+    "scenario": "plan-change",
+    "steps": [
+      {
+        "kind": "click",
+        "selector": ".nav-item:text-is(\"Plan\")"
+      },
+      {
+        "kind": "reload"
+      },
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Change in Chat\")"
+      }
+    ]
+  },
+  {
+    "id": "journey-change-applied",
+    "scenario": "plan-change",
+    "steps": [
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Apply to Plan\")"
+      }
+    ]
+  },
+  {
+    "id": "journey-change-undo-preview",
+    "scenario": "plan-change",
+    "steps": [
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Apply to Plan\")"
+      },
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Undo\")"
+      }
+    ]
+  },
+  {
+    "id": "journey-change-undo-cancel",
+    "scenario": "plan-change",
+    "steps": [
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Apply to Plan\")"
+      },
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Undo\")"
+      },
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Cancel\")"
+      }
+    ]
+  },
+  {
+    "id": "journey-change-undo-confirm",
+    "scenario": "plan-change",
+    "steps": [
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Apply to Plan\")"
+      },
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Undo\")"
+      },
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Apply to Plan\")"
+      }
+    ]
+  },
+  {
+    "id": "journey-change-stale-refusal",
+    "scenario": "plan-change-stale",
+    "steps": [
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Apply to Plan\")"
+      }
+    ]
+  },
+  {
+    "id": "journey-change-undo-refusal",
+    "scenario": "plan-change",
+    "steps": [
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Apply to Plan\")"
+      },
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Concurrent Plan update\")"
+      },
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Undo\")"
+      }
+    ]
+  },
+  {
+    "id": "journey-change-card-editor",
+    "scenario": "schedule-changes",
+    "variation": "weekly-cap",
+    "steps": [
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Change one thing\")"
+      },
+      {
+        "kind": "select",
+        "selector": "#field-kind",
+        "value": "weekly-duration"
+      },
+      {
+        "kind": "fill",
+        "selector": "#field-hours",
+        "value": "3"
+      }
+    ]
+  },
+  {
+    "id": "journey-change-text-preview",
+    "scenario": "schedule-changes",
+    "variation": "weekday-cap",
+    "steps": [
+      {
+        "kind": "fill",
+        "selector": "#coach-composer",
+        "value": "Wednesdays at most 30 minutes"
+      },
+      {
+        "kind": "click",
+        "selector": "[aria-label=\"Send message\"]"
+      }
+    ]
+  },
+  {
+    "id": "journey-stop-confirmed-history",
+    "scenario": "stop-offline",
+    "steps": [
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Stop Plan\")"
+      },
+      {
+        "kind": "click",
+        "selector": "[role=\"dialog\"] button.confirm-danger"
+      },
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Read final details\")"
+      }
+    ]
+  },
+  {
+    "id": "journey-completion-final",
+    "scenario": "completion",
+    "steps": [
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Advance to Plan end\")"
+      },
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Project Plan completion\")"
+      }
+    ]
+  },
+  {
+    "id": "journey-recovery-read-source",
+    "scenario": "assisted-recovery",
+    "steps": [
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Read source\") >> nth=0"
+      }
+    ]
+  },
+  {
+    "id": "journey-recovery-confirmation",
+    "scenario": "assisted-recovery",
+    "steps": [
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Continue\") >> nth=0"
+      }
+    ]
+  },
+  {
+    "id": "journey-recovery-cancel",
+    "scenario": "assisted-recovery",
+    "steps": [
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Continue\") >> nth=0"
+      },
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Cancel\")"
+      }
+    ]
+  },
+  {
+    "id": "journey-recovery-confirmed",
+    "scenario": "assisted-recovery",
+    "steps": [
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Continue\") >> nth=0"
+      },
+      {
+        "kind": "click",
+        "selector": ".card-actions button.primary:text-is(\"Continue\")"
+      }
+    ]
+  },
+  {
+    "id": "journey-recovery-conflict-attempt",
+    "scenario": "recovery-conflict",
+    "steps": [
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Continue\") >> nth=0"
+      }
+    ]
+  },
+  {
+    "id": "journey-recovery-change-preview",
+    "scenario": "recovery-change",
+    "steps": [
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Continue\") >> nth=1"
+      },
+      {
+        "kind": "click",
+        "selector": ".card-actions button.primary:text-is(\"Continue\")"
+      }
+    ]
+  },
+  {
+    "id": "journey-commitments-confirmed",
+    "scenario": "commitments",
+    "steps": [
+      {
+        "kind": "click",
+        "selector": "[data-editor-trigger=\"commitments\"]"
+      },
+      {
+        "kind": "fill",
+        "selector": "#field-text",
+        "value": "Wednesdays at most 30 minutes"
+      },
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Review interpretation\")"
+      },
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Confirm limits\")"
+      }
+    ]
+  },
+  {
+    "id": "journey-commitment-clarified",
+    "scenario": "commitment-pending",
+    "steps": [
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Clarify\")"
+      },
+      {
+        "kind": "fill",
+        "selector": "#field-text",
+        "value": "Wednesdays at most 30 minutes"
+      },
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Review interpretation\")"
+      }
+    ]
+  },
+  {
+    "id": "journey-daily-navigation-confirm",
+    "scenario": "daily-choice",
+    "steps": [
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Review Endurance ride\")"
+      },
+      {
+        "kind": "click",
+        "selector": ".nav-item:text-is(\"Plan\")"
+      },
+      {
+        "kind": "reload"
+      },
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Change in Chat\")"
+      },
+      {
+        "kind": "click",
+        "selector": "button:text-is(\"Apply to Plan\")"
+      }
+    ]
+  }
+]
