@@ -32,7 +32,7 @@ jobs:
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
         with:
           repository: yerzhansa/enduragent
-          ref: 8ae38056727383d4b66261f6d905263c140bc61a
+          ref: db15233ca4cbb489b150dbe2e7d0c1efe7dd0e97
           path: .parity/enduragent
           persist-credentials: false
       - name: Install pinned application consumer
