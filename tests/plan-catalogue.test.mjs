@@ -17,8 +17,8 @@ import {
   eligibleWorkouts,
   interpret,
   creationTextExamples,
-} from "../experiments/plan-in-chat/model.mjs";
-import { scenarios, acceptance, seed } from "../experiments/plan-in-chat/scenarios.mjs";
+} from "../src/plan-catalogue/model.ts";
+import { scenarios, acceptance, seed } from "../src/plan-catalogue/scenarios.ts";
 const step = (state, type, payload = {}) => transition(state, { type, ...payload });
 const saved = (state) => JSON.parse(JSON.stringify(state));
 const fill = (state, values = sampleAnswers()) =>

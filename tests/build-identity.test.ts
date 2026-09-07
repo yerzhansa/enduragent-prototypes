@@ -31,7 +31,6 @@ function builtIdentity(directory: string) {
     ]),
   );
   expect(Object.keys(digests)).toContain("index.html");
-  expect(Object.keys(digests)).toContain("experiments/plan-in-chat/index.html");
   expect(identity.outputs).toEqual(digests);
   return identity;
 }
@@ -42,7 +41,6 @@ it("identifies every finalized file and distinguishes HTML-only edits at the sam
     for (const path of [
       ".gitignore",
       "src",
-      "experiments",
       "tools",
       "vite.config.ts",
       "index.html",

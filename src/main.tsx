@@ -34,6 +34,7 @@ import { ExperimentNavigation, ExperimentShell } from "./experiment-shell";
 import { ChatExperiment } from "./chat-experiment";
 import { TrainingExperiment } from "./training-experiment";
 import { PlanExperiment } from "./plan-experiment";
+import { PlanCatalogue } from "./plan-catalogue/PlanCatalogue";
 
 declare const __UI_VERSION__: string;
 declare const __SOURCE_REVISION__: string;
@@ -243,7 +244,9 @@ if (location.pathname === "/experiments/plan-in-chat") {
   const root = document.getElementById("root");
   if (root === null) throw new Error("Prototype root is missing");
   createRoot(root).render(
-    location.pathname === "/experiments/day-review" ? (
+    location.pathname === "/experiments/plan-in-chat/" ? (
+      <PlanCatalogue />
+    ) : location.pathname === "/experiments/day-review" ? (
       <App />
     ) : location.pathname === "/experiments/chat" ? (
       <ExperimentShell title="Chat">

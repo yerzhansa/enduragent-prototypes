@@ -1,6 +1,6 @@
 # Enduragent Prototypes
 
-A standalone React and TypeScript application for trying fictional flows with the versioned `@enduragent/ui` package. The shared experiments cover day review, Chat, Training, and Plan presentation with local interactions. A separate Plan-in-Chat catalogue preserves the original HTML, styles, copy, and fictional interactions. No experiment connects to a service.
+A standalone React and TypeScript application for trying fictional flows with the versioned `@enduragent/ui` package. The experiments cover day review, Chat, Training, Plan presentation, and the complete Plan-in-Chat catalogue. No experiment connects to a service.
 
 Use Node 24 and the pnpm version in `packageManager`.
 
@@ -17,7 +17,7 @@ Open an experiment:
 - `/experiments/plan-presentation`: inspect shared question, draft, stale, activation, and recovery presentations.
 - `/experiments/plan-in-chat/`: exercise the original 55-entry Plan-in-Chat catalogue and its variations.
 
-Each shared React experiment owns independent in-memory state. Scenario controls and reset make states repeatable. The appearance control switches between light and dark. Reloading resets the experiment. These are presentation experiments; they do not execute real coaching, attachment processing, or plan activation.
+Each experiment owns independent fictional state. Scenario controls and reset make states repeatable. The appearance control switches between light and dark. Reloading resets the small presentation experiments; the Plan-in-Chat catalogue restores its matching fictional draft. These are presentation experiments; they do not execute real coaching, attachment processing, or plan activation.
 
 ```sh
 pnpm check
@@ -30,7 +30,7 @@ The browser gate runs the built application at wide and compact sizes in both ap
 
 For shared React experiments, the UI package owns controls, reusable patterns, tokens, fonts, and palette application. This application owns fictional data, state transitions, review controls, routing, and viewport layout. Consumer CSS imports the public UI stylesheet and compiles Tailwind utilities once. Never import sibling source, copy control implementations, or connect experiments to credentials, application storage, native bridges, or services.
 
-The standalone catalogue is an exact-copy migration exception. Its five runtime files are checked against frozen original SHA-256 hashes. The only source change is `type="module"` on the HTML script entry so Vite can bundle it. It uses its original isolated fictional storage key, `enduragent-fictional-plan-catalogue-v1`, to restore matching scenario drafts after reload. Reset this fixture restores its seed. It does not access application storage or native APIs. Keep these files unformatted; changes require a separately captured baseline and review.
+The Plan-in-Chat catalogue uses typed state transitions, React components, Tailwind styles, and shared Plan patterns from `@enduragent/ui`. It uses the isolated fictional storage key `enduragent-fictional-plan-catalogue-v1` to restore matching scenario drafts after reload. Reset this fixture restores its seed. Source checks prohibit HTML injection, legacy runtime adapters, application storage, and native APIs. The original catalogue remains the frozen visual reference.
 
 Shared experiment review details show the installed UI version and source revision. A production build emits `review-source.json` with schema version, repository, revision, dirty state, installed UI version, UI content digest, lockfile digest, and each output's SHA-256 digest. Uncommitted builds are explicitly marked.
 
