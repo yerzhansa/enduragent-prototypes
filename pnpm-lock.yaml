@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@enduragent/ui':
-        specifier: https://github.com/yerzhansa/enduragent-ui/releases/download/v0.2.0/enduragent-ui-0.2.0.tgz
-        version: https://github.com/yerzhansa/enduragent-ui/releases/download/v0.2.0/enduragent-ui-0.2.0.tgz(@types/react@19.2.17)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tailwindcss@4.3.3)
+        specifier: https://github.com/yerzhansa/enduragent-ui/releases/download/v0.3.0/enduragent-ui-0.3.0.tgz
+        version: https://github.com/yerzhansa/enduragent-ui/releases/download/v0.3.0/enduragent-ui-0.3.0.tgz(@types/react@19.2.17)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tailwindcss@4.3.3)
       react:
         specifier: 19.2.8
         version: 19.2.8
@@ -180,9 +180,9 @@ packages:
       '@types/react':
         optional: true
 
-  '@enduragent/ui@https://github.com/yerzhansa/enduragent-ui/releases/download/v0.2.0/enduragent-ui-0.2.0.tgz':
-    resolution: {integrity: sha512-EH8VBOVyKz58JFvPCODX+TOp2Pd4+wubbVgDeN1SohPh7j9lrkdFZl9SJzeLnMvACDp+t5WJwoMGpCZCO5dO5Q==, tarball: https://github.com/yerzhansa/enduragent-ui/releases/download/v0.2.0/enduragent-ui-0.2.0.tgz}
-    version: 0.2.0
+  '@enduragent/ui@https://github.com/yerzhansa/enduragent-ui/releases/download/v0.3.0/enduragent-ui-0.3.0.tgz':
+    resolution: {integrity: sha512-TMJFYmRK5tOWlzRvyKlPCs6V6bC2jT5sjmpfvCTBQomThKmFwf+eBkHtfOGx6JdgQg06ljgzu5Mf7aOv3mKE/g==, tarball: https://github.com/yerzhansa/enduragent-ui/releases/download/v0.3.0/enduragent-ui-0.3.0.tgz}
+    version: 0.3.0
     engines: {node: '>=24'}
     peerDependencies:
       react: ^19.2.8
@@ -1651,7 +1651,7 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.2.17
 
-  '@enduragent/ui@https://github.com/yerzhansa/enduragent-ui/releases/download/v0.2.0/enduragent-ui-0.2.0.tgz(@types/react@19.2.17)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tailwindcss@4.3.3)':
+  '@enduragent/ui@https://github.com/yerzhansa/enduragent-ui/releases/download/v0.3.0/enduragent-ui-0.3.0.tgz(@types/react@19.2.17)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tailwindcss@4.3.3)':
     dependencies:
       '@base-ui/react': 1.6.0(@types/react@19.2.17)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       class-variance-authority: 0.7.1
