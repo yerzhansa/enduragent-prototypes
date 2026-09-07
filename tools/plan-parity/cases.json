@@ -1,0 +1,502 @@
+[
+  {
+    "id": "creation-start--default",
+    "scenario": "creation-start"
+  },
+  {
+    "id": "goal-answered--default",
+    "scenario": "goal-answered"
+  },
+  {
+    "id": "custom-answer--default",
+    "scenario": "custom-answer"
+  },
+  {
+    "id": "length-question--default",
+    "scenario": "length-question"
+  },
+  {
+    "id": "edit-answer--default",
+    "scenario": "edit-answer"
+  },
+  {
+    "id": "schedule-summary--default",
+    "scenario": "schedule-summary"
+  },
+  {
+    "id": "success-question--default",
+    "scenario": "success-question"
+  },
+  {
+    "id": "success-question--event",
+    "scenario": "success-question",
+    "variation": "event"
+  },
+  {
+    "id": "success-question--fitness",
+    "scenario": "success-question",
+    "variation": "fitness"
+  },
+  {
+    "id": "restrictions-question--default",
+    "scenario": "restrictions-question"
+  },
+  {
+    "id": "resume--default",
+    "scenario": "resume"
+  },
+  {
+    "id": "discard-confirm--default",
+    "scenario": "discard-confirm"
+  },
+  {
+    "id": "discarded--default",
+    "scenario": "discarded"
+  },
+  {
+    "id": "building--default",
+    "scenario": "building"
+  },
+  {
+    "id": "draft-review--default",
+    "scenario": "draft-review"
+  },
+  {
+    "id": "draft-review--fixed",
+    "scenario": "draft-review",
+    "variation": "fixed"
+  },
+  {
+    "id": "draft-review--flexible",
+    "scenario": "draft-review",
+    "variation": "flexible"
+  },
+  {
+    "id": "stale-draft--default",
+    "scenario": "stale-draft"
+  },
+  {
+    "id": "activate-confirm--default",
+    "scenario": "activate-confirm"
+  },
+  {
+    "id": "activated--default",
+    "scenario": "activated"
+  },
+  {
+    "id": "plan-change--default",
+    "scenario": "plan-change"
+  },
+  {
+    "id": "plan-change-stale--default",
+    "scenario": "plan-change-stale"
+  },
+  {
+    "id": "plan-library--default",
+    "scenario": "plan-library"
+  },
+  {
+    "id": "plan-library--mixed",
+    "scenario": "plan-library",
+    "variation": "mixed"
+  },
+  {
+    "id": "plan-library--empty",
+    "scenario": "plan-library",
+    "variation": "empty"
+  },
+  {
+    "id": "plan-library--creation",
+    "scenario": "plan-library",
+    "variation": "creation"
+  },
+  {
+    "id": "plan-library--active",
+    "scenario": "plan-library",
+    "variation": "active"
+  },
+  {
+    "id": "plan-library--history",
+    "scenario": "plan-library",
+    "variation": "history"
+  },
+  {
+    "id": "plan-library--creation-active",
+    "scenario": "plan-library",
+    "variation": "creation-active"
+  },
+  {
+    "id": "plan-library--creation-history",
+    "scenario": "plan-library",
+    "variation": "creation-history"
+  },
+  {
+    "id": "plan-library--active-history",
+    "scenario": "plan-library",
+    "variation": "active-history"
+  },
+  {
+    "id": "manual-event--default",
+    "scenario": "manual-event"
+  },
+  {
+    "id": "manual-fitness--default",
+    "scenario": "manual-fitness"
+  },
+  {
+    "id": "connected-conflict--default",
+    "scenario": "connected-conflict"
+  },
+  {
+    "id": "event-boundaries--default",
+    "scenario": "event-boundaries"
+  },
+  {
+    "id": "event-boundaries--4",
+    "scenario": "event-boundaries",
+    "variation": "4"
+  },
+  {
+    "id": "event-boundaries--5",
+    "scenario": "event-boundaries",
+    "variation": "5"
+  },
+  {
+    "id": "event-boundaries--24",
+    "scenario": "event-boundaries",
+    "variation": "24"
+  },
+  {
+    "id": "event-boundaries--25",
+    "scenario": "event-boundaries",
+    "variation": "25"
+  },
+  {
+    "id": "fitness-lengths--default",
+    "scenario": "fitness-lengths"
+  },
+  {
+    "id": "fitness-lengths--4",
+    "scenario": "fitness-lengths",
+    "variation": "4"
+  },
+  {
+    "id": "fitness-lengths--8",
+    "scenario": "fitness-lengths",
+    "variation": "8"
+  },
+  {
+    "id": "fitness-lengths--12",
+    "scenario": "fitness-lengths",
+    "variation": "12"
+  },
+  {
+    "id": "fitness-lengths--16",
+    "scenario": "fitness-lengths",
+    "variation": "16"
+  },
+  {
+    "id": "no-ftp--default",
+    "scenario": "no-ftp"
+  },
+  {
+    "id": "fixed-conflict--default",
+    "scenario": "fixed-conflict"
+  },
+  {
+    "id": "commitments--default",
+    "scenario": "commitments"
+  },
+  {
+    "id": "commitment-pending--default",
+    "scenario": "commitment-pending"
+  },
+  {
+    "id": "no-workouts--default",
+    "scenario": "no-workouts"
+  },
+  {
+    "id": "rest-week--default",
+    "scenario": "rest-week"
+  },
+  {
+    "id": "flexible-pool--default",
+    "scenario": "flexible-pool"
+  },
+  {
+    "id": "flexible-pool--6",
+    "scenario": "flexible-pool",
+    "variation": "6"
+  },
+  {
+    "id": "flexible-pool--8",
+    "scenario": "flexible-pool",
+    "variation": "8"
+  },
+  {
+    "id": "flexible-pool--9",
+    "scenario": "flexible-pool",
+    "variation": "9"
+  },
+  {
+    "id": "operational-restrictions--default",
+    "scenario": "operational-restrictions"
+  },
+  {
+    "id": "operational-restrictions--none",
+    "scenario": "operational-restrictions",
+    "variation": "none"
+  },
+  {
+    "id": "operational-restrictions--no-training",
+    "scenario": "operational-restrictions",
+    "variation": "no-training"
+  },
+  {
+    "id": "operational-restrictions--no-hard-training",
+    "scenario": "operational-restrictions",
+    "variation": "no-hard-training"
+  },
+  {
+    "id": "operational-restrictions--max-duration",
+    "scenario": "operational-restrictions",
+    "variation": "max-duration"
+  },
+  {
+    "id": "rebuild-failures--default",
+    "scenario": "rebuild-failures"
+  },
+  {
+    "id": "rebuild-failures--build",
+    "scenario": "rebuild-failures",
+    "variation": "build"
+  },
+  {
+    "id": "rebuild-failures--translation",
+    "scenario": "rebuild-failures",
+    "variation": "translation"
+  },
+  {
+    "id": "rebuild-failures--validation",
+    "scenario": "rebuild-failures",
+    "variation": "validation"
+  },
+  {
+    "id": "rebuild-failures--interruption",
+    "scenario": "rebuild-failures",
+    "variation": "interruption"
+  },
+  {
+    "id": "first-activation--default",
+    "scenario": "first-activation"
+  },
+  {
+    "id": "activation-conflicts--default",
+    "scenario": "activation-conflicts"
+  },
+  {
+    "id": "activation-conflicts--retry",
+    "scenario": "activation-conflicts",
+    "variation": "retry"
+  },
+  {
+    "id": "activation-conflicts--stale",
+    "scenario": "activation-conflicts",
+    "variation": "stale"
+  },
+  {
+    "id": "activation-failure--default",
+    "scenario": "activation-failure"
+  },
+  {
+    "id": "calendar-failure--default",
+    "scenario": "calendar-failure"
+  },
+  {
+    "id": "stop-offline--default",
+    "scenario": "stop-offline"
+  },
+  {
+    "id": "completion--default",
+    "scenario": "completion"
+  },
+  {
+    "id": "base-ending--default",
+    "scenario": "base-ending"
+  },
+  {
+    "id": "unknown-ending--default",
+    "scenario": "unknown-ending"
+  },
+  {
+    "id": "flexible-week-end--default",
+    "scenario": "flexible-week-end"
+  },
+  {
+    "id": "schedule-changes--default",
+    "scenario": "schedule-changes"
+  },
+  {
+    "id": "schedule-changes--weekday-cap",
+    "scenario": "schedule-changes",
+    "variation": "weekday-cap"
+  },
+  {
+    "id": "schedule-changes--weekday-unavailable",
+    "scenario": "schedule-changes",
+    "variation": "weekday-unavailable"
+  },
+  {
+    "id": "schedule-changes--weekday-hard-block",
+    "scenario": "schedule-changes",
+    "variation": "weekday-hard-block"
+  },
+  {
+    "id": "schedule-changes--weekly-cap",
+    "scenario": "schedule-changes",
+    "variation": "weekly-cap"
+  },
+  {
+    "id": "schedule-changes--longest-cap",
+    "scenario": "schedule-changes",
+    "variation": "longest-cap"
+  },
+  {
+    "id": "preview-cancelled--default",
+    "scenario": "preview-cancelled"
+  },
+  {
+    "id": "preview-supersession--default",
+    "scenario": "preview-supersession"
+  },
+  {
+    "id": "preview-failure--default",
+    "scenario": "preview-failure"
+  },
+  {
+    "id": "preview-failure--translation",
+    "scenario": "preview-failure",
+    "variation": "translation"
+  },
+  {
+    "id": "preview-failure--validation",
+    "scenario": "preview-failure",
+    "variation": "validation"
+  },
+  {
+    "id": "preview-failure--build",
+    "scenario": "preview-failure",
+    "variation": "build"
+  },
+  {
+    "id": "preview-competing--default",
+    "scenario": "preview-competing"
+  },
+  {
+    "id": "daily-choice--default",
+    "scenario": "daily-choice"
+  },
+  {
+    "id": "supporting-events--default",
+    "scenario": "supporting-events"
+  },
+  {
+    "id": "supporting-events--add",
+    "scenario": "supporting-events",
+    "variation": "add"
+  },
+  {
+    "id": "supporting-events--remove",
+    "scenario": "supporting-events",
+    "variation": "remove"
+  },
+  {
+    "id": "supporting-events--role",
+    "scenario": "supporting-events",
+    "variation": "role"
+  },
+  {
+    "id": "supporting-events--manual",
+    "scenario": "supporting-events",
+    "variation": "manual"
+  },
+  {
+    "id": "supporting-events--source-update",
+    "scenario": "supporting-events",
+    "variation": "source-update"
+  },
+  {
+    "id": "supporting-events--name",
+    "scenario": "supporting-events",
+    "variation": "name"
+  },
+  {
+    "id": "supporting-events--source-drift",
+    "scenario": "supporting-events",
+    "variation": "source-drift"
+  },
+  {
+    "id": "ftp-correction--default",
+    "scenario": "ftp-correction"
+  },
+  {
+    "id": "adaptation-guards--default",
+    "scenario": "adaptation-guards"
+  },
+  {
+    "id": "adaptation-guards--race",
+    "scenario": "adaptation-guards",
+    "variation": "race"
+  },
+  {
+    "id": "adaptation-guards--taper",
+    "scenario": "adaptation-guards",
+    "variation": "taper"
+  },
+  {
+    "id": "adaptation-guards--stale-sync",
+    "scenario": "adaptation-guards",
+    "variation": "stale-sync"
+  },
+  {
+    "id": "adaptation-guards--missing-evidence",
+    "scenario": "adaptation-guards",
+    "variation": "missing-evidence"
+  },
+  {
+    "id": "adaptation-guards--changed-evidence",
+    "scenario": "adaptation-guards",
+    "variation": "changed-evidence"
+  },
+  {
+    "id": "assisted-recovery--default",
+    "scenario": "assisted-recovery"
+  },
+  {
+    "id": "recovery-conflict--default",
+    "scenario": "recovery-conflict"
+  },
+  {
+    "id": "recovery-change--default",
+    "scenario": "recovery-change"
+  },
+  {
+    "id": "recovery-notices--default",
+    "scenario": "recovery-notices"
+  },
+  {
+    "id": "recovery-notices--interrupted",
+    "scenario": "recovery-notices",
+    "variation": "interrupted"
+  },
+  {
+    "id": "recovery-notices--source-drift",
+    "scenario": "recovery-notices",
+    "variation": "source-drift"
+  },
+  {
+    "id": "recovery-notices--restored",
+    "scenario": "recovery-notices",
+    "variation": "restored"
+  }
+]

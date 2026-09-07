@@ -61,5 +61,15 @@ export default defineConfig({
     __UI_VERSION__: JSON.stringify(uiVersion),
     __SOURCE_REVISION__: JSON.stringify(`${revision}${dirty ? " (uncommitted changes)" : ""}`),
   },
+  build: {
+    rollupOptions: {
+      input: {
+        main: fileURLToPath(new URL("./index.html", import.meta.url)),
+        planCatalogue: fileURLToPath(
+          new URL("./experiments/plan-in-chat/index.html", import.meta.url),
+        ),
+      },
+    },
+  },
   server: { host: "127.0.0.1", strictPort: true },
 });

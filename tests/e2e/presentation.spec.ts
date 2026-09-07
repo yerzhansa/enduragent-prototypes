@@ -90,7 +90,7 @@ test("Training changes periods and data, opens missing facts and returns", async
 test("Plan resumes, reviews, cancels activation and records a sample change", async ({
   page,
 }, testInfo) => {
-  await page.goto("/experiments/plan-in-chat");
+  await page.goto("/experiments/plan-presentation");
   await page.getByRole("button", { name: "Resume", exact: true }).click();
   await page.getByRole("button", { name: "6 hours" }).click();
   await page.getByRole("button", { name: "Review sample Draft" }).click();
@@ -147,7 +147,7 @@ test("navigation and appearance preserve isolated responsive experiments", async
   for (const [label, path] of [
     ["Chat", "chat"],
     ["Training", "training"],
-    ["Plan-in-Chat", "plan-in-chat"],
+    ["Plan presentation", "plan-presentation"],
   ]) {
     await page
       .getByRole("navigation", { name: "Experiments" })
@@ -173,7 +173,7 @@ test("navigation and appearance preserve isolated responsive experiments", async
 test("Plan requires recorded answers and rebuilds stale Draft evidence", async ({
   page,
 }, testInfo) => {
-  await page.goto("/experiments/plan-in-chat");
+  await page.goto("/experiments/plan-presentation");
   await page.getByRole("button", { name: "Resume", exact: true }).click();
   const review = page.getByRole("button", { name: "Review sample Draft", exact: true });
   await expect(review).toBeDisabled();

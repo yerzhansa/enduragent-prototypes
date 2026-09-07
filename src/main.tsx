@@ -237,26 +237,30 @@ function App() {
   );
 }
 
-const root = document.getElementById("root");
-if (root === null) throw new Error("Prototype root is missing");
-createRoot(root).render(
-  location.pathname === "/experiments/day-review" ? (
-    <App />
-  ) : location.pathname === "/experiments/chat" ? (
-    <ExperimentShell title="Chat">
-      <ChatExperiment />
-    </ExperimentShell>
-  ) : location.pathname === "/experiments/training" ? (
-    <ExperimentShell title="Training">
-      <TrainingExperiment />
-    </ExperimentShell>
-  ) : location.pathname === "/experiments/plan-in-chat" ? (
-    <ExperimentShell title="Plan-in-Chat">
-      <PlanExperiment />
-    </ExperimentShell>
-  ) : (
-    <Page title="Page not found">
-      <p>This experiment is not available at this address.</p>
-    </Page>
-  ),
-);
+if (location.pathname === "/experiments/plan-in-chat") {
+  location.replace(`/experiments/plan-in-chat/${location.search}${location.hash}`);
+} else {
+  const root = document.getElementById("root");
+  if (root === null) throw new Error("Prototype root is missing");
+  createRoot(root).render(
+    location.pathname === "/experiments/day-review" ? (
+      <App />
+    ) : location.pathname === "/experiments/chat" ? (
+      <ExperimentShell title="Chat">
+        <ChatExperiment />
+      </ExperimentShell>
+    ) : location.pathname === "/experiments/training" ? (
+      <ExperimentShell title="Training">
+        <TrainingExperiment />
+      </ExperimentShell>
+    ) : location.pathname === "/experiments/plan-presentation" ? (
+      <ExperimentShell title="Plan presentation">
+        <PlanExperiment />
+      </ExperimentShell>
+    ) : (
+      <Page title="Page not found">
+        <p>This experiment is not available at this address.</p>
+      </Page>
+    ),
+  );
+}
