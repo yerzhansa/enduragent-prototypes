@@ -1,6 +1,6 @@
 # Enduragent Prototypes
 
-A standalone React and TypeScript application for trying fictional flows with the versioned `@enduragent/ui` package. The day-review experiment lets you choose a day, review it, cancel or confirm discard, and reset the scenario. It stores nothing and connects to no service.
+A standalone React and TypeScript application for trying fictional flows with the versioned `@enduragent/ui` package. The experiments cover day review, Chat, Training, and Plan presentation with local interactions. It stores nothing and connects to no service.
 
 Use Node 24 and the pnpm version in `packageManager`.
 
@@ -9,7 +9,14 @@ pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-Open `/experiments/day-review`. The scenario selector offers day selected, no day selected, review open, and discard confirmation. Each scenario starts from independent in-memory state. The appearance control switches between light and dark. Reloading resets the experiment.
+Open an experiment:
+
+- `/experiments/day-review`: select a day, open its review, and cancel or confirm discard.
+- `/experiments/chat`: answer a sample question, send or queue a message, stop a response, and inspect attachment and retry states.
+- `/experiments/training`: inspect a weekly summary, accessible trend data, and a ride review.
+- `/experiments/plan-in-chat`: inspect fictional question, draft, stale, activation, and recovery presentations.
+
+Each experiment owns independent in-memory state. Scenario controls and reset make states repeatable. The appearance control switches between light and dark. Reloading resets the experiment. These are presentation experiments; they do not execute real coaching, attachment processing, or plan activation.
 
 ```sh
 pnpm check
