@@ -4,7 +4,7 @@ import { dirname, relative, resolve } from "node:path";
 import ts from "typescript";
 
 const storageNamespace = "enduragent-fictional-plan-catalogue-v1";
-const allowedPackages = new Set(["react", "react-dom/client", "@enduragent/ui"]);
+const allowedPackages = new Set(["react", "react-dom/client", "@enduragent/ui", "lucide-react"]);
 const prohibited = new Set([
   "fetch",
   "XMLHttpRequest",
