@@ -1822,7 +1822,9 @@ export function createCatalogueView(ctx: CatalogueViewContext) {
             </div>
           </div>
         )}
-        <p className="composer-disclaimer">Training changes need your confirmation.</p>
+        <p className="composer-disclaimer">
+          Not medical advice, and not a substitute for a doctor or a certified coach.
+        </p>
       </div>
     );
   }
