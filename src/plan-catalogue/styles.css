@@ -3360,7 +3360,7 @@
   .action-button {
     @apply [line-height:var(--line-height-sm)];
   }
-  .context-drawer-panel .context-section > .action-button {
+  .context-section > .action-button {
     @apply mt-inset;
   }
   .app-frame[data-width="compact"] .evidence-row .card-actions {
