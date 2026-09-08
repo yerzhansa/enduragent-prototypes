@@ -688,6 +688,7 @@
   }
 
   .thread {
+    @apply [anchor-name:--plan-chat-content];
     @apply w-[min(720px,_calc(100%_-_48px))] m-[0_auto] p-[32px_0_190px];
   }
 
@@ -749,9 +750,9 @@
   }
 
   .composer-dock {
-    @apply absolute [right:0] [bottom:0] [left:0] z-[4];
+    @apply absolute [position-anchor:--plan-chat-content] [left:anchor(left)] [right:anchor(right)] [bottom:0] z-[4];
     background: linear-gradient(transparent, var(--bg) 22%, var(--bg) 100%);
-    @apply p-[28px_max(24px,_calc((100%_-_720px)_/_2))_14px];
+    @apply p-[28px_0_14px];
   }
 
   .chat-surface.has-queued-messages .thread {
@@ -2352,22 +2353,6 @@
     @apply w-[min(690px,_calc(100%_-_40px))];
   }
 
-  .direction-reading .composer-dock {
-    @apply right-[252px] pr-[max(24px,_calc((100%_-_252px_-_720px)_/_2))] pl-[max(24px,_calc((100%_-_252px_-_720px)_/_2))];
-  }
-
-  .direction-reading.context-closed .composer-dock {
-    @apply [right:0] pr-[max(24px,_calc((100%_-_720px)_/_2))] pl-[max(24px,_calc((100%_-_720px)_/_2))];
-  }
-
-  .direction-desk .composer-dock {
-    @apply right-[252px] pr-[max(20px,_calc((100%_-_252px_-_690px)_/_2))] pl-[max(20px,_calc((100%_-_252px_-_690px)_/_2))];
-  }
-
-  .direction-desk.context-closed .composer-dock {
-    @apply [right:0] pr-[max(20px,_calc((100%_-_690px)_/_2))] pl-[max(20px,_calc((100%_-_690px)_/_2))];
-  }
-
   .chat-layout-context.is-closed {
     @apply grid-cols-[minmax(0,_1fr)];
   }
@@ -2382,10 +2367,6 @@
 
   .direction-journal .thread-persistent {
     @apply w-[min(760px,_calc(100%_-_56px))];
-  }
-
-  .direction-journal .composer-dock {
-    @apply pr-[max(28px,_calc((100%_-_760px)_/_2))] pl-[max(28px,_calc((100%_-_760px)_/_2))];
   }
 
   .history-trigger {
@@ -2477,10 +2458,6 @@
 
   .direction-ledger .thread-persistent {
     @apply w-[min(800px,_calc(100%_-_48px))];
-  }
-
-  .direction-ledger .composer-dock {
-    @apply pr-[max(24px,_calc((100%_-_800px)_/_2))] pl-[max(24px,_calc((100%_-_800px)_/_2))];
   }
 
   .ledger-turn {
@@ -2894,22 +2871,12 @@
     @apply w-[calc(100%_-_32px)];
   }
 
-  .app-frame[data-width="compact"] .composer-dock,
-  .app-frame[data-width="compact"] .direction-journal .composer-dock,
-  .app-frame[data-width="compact"] .direction-ledger .composer-dock {
-    @apply [right:0] pr-[16px] pl-[16px];
-  }
-
   .app-frame[data-width="compact"] .chat-layout-context {
     @apply grid-cols-[minmax(0,_1fr)];
   }
 
   .app-frame[data-width="compact"] .chat-layout-context > .context-panel {
     @apply hidden;
-  }
-
-  .app-frame[data-width="compact"] .direction-desk .composer-dock {
-    @apply [right:0];
   }
 
   .app-frame[data-width="compact"] .context-drawer {
