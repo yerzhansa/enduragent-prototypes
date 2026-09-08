@@ -1,4 +1,5 @@
 import { useLayoutEffect, useRef } from "react";
+import { Moon, Sun } from "lucide-react";
 import { useCatalogueController } from "./controller";
 import { addDays } from "./model";
 import { scenarios } from "./scenarios";
@@ -82,7 +83,7 @@ export function PlanCatalogue() {
             aria-label="Switch appearance"
             onClick={controller.toggleTheme}
           >
-            <span data-icon="sun" />
+            {ui.theme === "dark" ? <Sun aria-hidden="true" /> : <Moon aria-hidden="true" />}
             <span id="theme-label">{ui.theme === "dark" ? "Light" : "Dark"}</span>
           </button>
           <div className="segmented" role="group" aria-label="Prototype width">

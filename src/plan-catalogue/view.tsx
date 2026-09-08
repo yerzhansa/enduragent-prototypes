@@ -14,6 +14,7 @@ import {
   PlanProjectionCard,
   PlanResultNotice,
 } from "@enduragent/ui";
+import { ArrowUp, Check, ChevronDown, Paperclip } from "lucide-react";
 import * as M from "./model";
 import type {
   AnswerKey,
@@ -209,7 +210,7 @@ export function createCatalogueView(ctx: CatalogueViewContext) {
         return (
           <section key={key} className="choice-result" aria-label={labels[key] + " answer"}>
             <span className="choice-result-mark" aria-hidden="true">
-              ✓
+              <Check />
             </span>
             <div>
               <p className="artifact-eyebrow">Answer recorded</p>
@@ -283,17 +284,7 @@ export function createCatalogueView(ctx: CatalogueViewContext) {
               </option>
             ))}
           </select>
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden="true"
-          >
-            <path d="m6 9 6 6 6-6" />
-          </svg>
+          <ChevronDown aria-hidden="true" />
         </span>
       </label>
     );
@@ -1789,17 +1780,7 @@ export function createCatalogueView(ctx: CatalogueViewContext) {
               />
               <div className="composer-toolbar">
                 <button className="icon-button" type="button" aria-label="Attach a file" disabled>
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.8"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    aria-hidden="true"
-                  >
-                    <path d="m21.4 11.6-8.9 8.9a6 6 0 0 1-8.5-8.5l9.5-9.5a4 4 0 0 1 5.7 5.7L9.7 17.7a2 2 0 1 1-2.8-2.8l8.8-8.8" />
-                  </svg>
+                  <Paperclip aria-hidden="true" />
                 </button>
                 <button
                   className="send"
@@ -1808,15 +1789,7 @@ export function createCatalogueView(ctx: CatalogueViewContext) {
                   onClick={() => ctx.run({ ui: "send" })}
                   disabled={hasQuestion}
                 >
-                  <svg
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.8"
-                  >
-                    <path d="M12 19V5M5 12l7-7 7 7" />
-                  </svg>
+                  <ArrowUp aria-hidden="true" />
                 </button>
               </div>
             </div>
