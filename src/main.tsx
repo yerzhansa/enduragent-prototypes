@@ -33,6 +33,7 @@ import {
 import { ExperimentNavigation, ExperimentShell } from "./experiment-shell";
 import { ChatExperiment } from "./chat-experiment";
 import { TrainingExperiment } from "./training-experiment";
+import { LanguageExperiment } from "./language-experiment";
 import { PlanExperiment } from "./plan-experiment";
 import { PlanCatalogue } from "./plan-catalogue/PlanCatalogue";
 
@@ -255,6 +256,10 @@ if (location.pathname === "/experiments/plan-in-chat") {
     ) : location.pathname === "/experiments/training" ? (
       <ExperimentShell title="Training">
         <TrainingExperiment />
+      </ExperimentShell>
+    ) : location.pathname === "/experiments/language" ? (
+      <ExperimentShell title="Language">
+        <LanguageExperiment />
       </ExperimentShell>
     ) : location.pathname === "/experiments/plan-presentation" ? (
       <ExperimentShell title="Plan presentation">

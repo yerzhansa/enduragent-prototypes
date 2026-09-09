@@ -14,6 +14,7 @@ Open an experiment:
 - `/experiments/day-review`: select a day, open its review, and cancel or confirm discard.
 - `/experiments/chat`: answer a sample question, send or queue a message, stop a response, and inspect attachment and retry states.
 - `/experiments/training`: inspect a weekly summary, accessible trend data, and a ride review.
+- `/experiments/language`: compare first-launch language selectors and the Settings language row with fictional English, Italian, and Japanese catalogs.
 - `/experiments/plan-presentation`: inspect shared question, draft, stale, activation, and recovery presentations.
 - `/experiments/plan-in-chat/`: exercise the original 55-entry Plan-in-Chat catalogue and its variations.
 
