@@ -773,7 +773,7 @@
   }
 
   .queue-stack {
-    @apply mb-[8px];
+    @apply mb-row;
     @apply overflow-hidden;
     @apply [border:1px_solid_var(--line)];
     @apply rounded-card;
@@ -831,7 +831,7 @@
   }
 
   .coach-answer-prompt {
-    @apply mb-inset;
+    @apply mb-row;
   }
 
   .coach-answer-prompt .choice-card,
@@ -841,7 +841,7 @@
   }
 
   .composer-notice .notice-row {
-    @apply mb-inset [box-shadow:var(--shadow-2)];
+    @apply mb-row [box-shadow:var(--shadow-2)];
   }
 
   .chip {
@@ -1052,7 +1052,7 @@
   }
 
   .attachment-panel {
-    @apply mb-inset overflow-hidden;
+    @apply mb-row overflow-hidden;
   }
 
   .attachment-file-head {
