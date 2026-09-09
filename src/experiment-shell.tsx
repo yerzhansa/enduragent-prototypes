@@ -8,6 +8,7 @@ export function ExperimentNavigation() {
         ["day-review", "Day review"],
         ["chat", "Chat"],
         ["training", "Training"],
+        ["language", "Language"],
         ["plan-presentation", "Plan presentation"],
         ["plan-in-chat/", "Plan-in-Chat"],
       ].map(([path, label]) => (
