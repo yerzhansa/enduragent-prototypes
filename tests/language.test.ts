@@ -47,12 +47,13 @@ describe("operating-system language", () => {
 });
 
 describe("fictional language flow", () => {
-  it("starts with the OS language, radio presentation, and Automatic settings", () => {
+  it("skips the language screen when the OS language is supported", () => {
     expect(initialLanguageState(["it-IT"])).toEqual({
       prototype: "first-launch",
-      presentation: "radio",
+      screen: "rule",
       osLanguage: "it",
-      launch: { stage: "language", language: "it" },
+      osSupported: true,
+      launch: { stage: "setup", language: "it", skipped: true },
       preference: "automatic",
       preferenceStatus: "ready",
       units: "metric",
@@ -61,27 +62,25 @@ describe("fictional language flow", () => {
   });
 
   it("carries the highlighted language to Setup and preserves it when returning", () => {
-    const highlighted = reduceLanguage(initialLanguageState(["en"]), {
+    const highlighted = reduceLanguage(initialLanguageState(["ar"]), {
       type: "highlight",
       language: "ja",
     });
     const setup = reduceLanguage(highlighted, { type: "continue" });
-    expect(setup.launch).toEqual({ stage: "setup", language: "ja" });
+    expect(setup.launch).toEqual({ stage: "setup", language: "ja", skipped: false });
     expect(reduceLanguage(setup, { type: "highlight", language: "it" })).toBe(setup);
     expect(reduceLanguage(setup, { type: "continue" })).toBe(setup);
-    expect(reduceLanguage(setup, { type: "back" })).toEqual(highlighted);
-    expect(reduceLanguage(highlighted, { type: "back" })).toBe(highlighted);
   });
 
   it("resets the launch selection from a new OS scenario without changing explicit settings", () => {
-    const explicit = reduceLanguage(initialLanguageState(["en"]), {
+    const explicit = reduceLanguage(initialLanguageState(["ar"]), {
       type: "preference",
       value: "it",
     });
     const setup = reduceLanguage(explicit, { type: "continue" });
     const changed = reduceLanguage(setup, { type: "os-language", languages: ["ja-JP"] });
     expect(changed.osLanguage).toBe("ja");
-    expect(changed.launch).toEqual({ stage: "language", language: "ja" });
+    expect(changed.launch).toEqual({ stage: "setup", language: "ja", skipped: true });
     expect(changed.preference).toBe("it");
     expect(reduceLanguage(changed, { type: "os-language", languages: ["ar"] }).osLanguage).toBe(
       "en",
@@ -114,16 +113,25 @@ describe("fictional language flow", () => {
     );
   });
 
-  it("keeps prototype, presentation, units, and appearance independent of language choices", () => {
+  it("shows the language screen with English preselected when the OS language is unsupported", () => {
+    const unsupported = initialLanguageState(["uk", "ru"]);
+    expect(unsupported.osSupported).toBe(false);
+    expect(unsupported.launch).toEqual({ stage: "language", language: "en", skipped: false });
+    const forced = reduceLanguage(initialLanguageState(["ja"]), {
+      type: "screen",
+      value: "always",
+    });
+    expect(forced.launch).toEqual({ stage: "language", language: "ja", skipped: false });
+  });
+
+  it("keeps prototype, units, and appearance independent of language choices", () => {
     const initial = initialLanguageState(["ja"]);
     const settings = reduceLanguage(initial, { type: "prototype", value: "settings" });
-    const select = reduceLanguage(settings, { type: "presentation", value: "select" });
-    const units = reduceLanguage(select, { type: "units", value: "imperial" });
+    const units = reduceLanguage(settings, { type: "units", value: "imperial" });
     const appearance = reduceLanguage(units, { type: "appearance", value: "dark" });
     expect(appearance).toEqual({
       ...initial,
       prototype: "settings",
-      presentation: "select",
       units: "imperial",
       appearance: "dark",
     });

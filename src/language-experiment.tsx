@@ -7,7 +7,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@enduragent/ui";
-import { Check } from "lucide-react";
 import {
   catalogFor,
   initialLanguageState,
@@ -21,8 +20,35 @@ const headingClass =
 const rowClass = "flex items-center gap-4 border-b border-line px-4 py-[13px]";
 const controlClass =
   "h-ctl w-full min-w-0 max-w-[260px] shrink-0 rounded-ctl border border-input bg-background px-ctl-px text-sm text-foreground shadow-elev-1 outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/20 disabled:opacity-64";
+const setupCardClass =
+  "rounded-xl border border-line bg-surface shadow-elev-1 [&>*+*]:border-t [&>*+*]:border-line [&>*:first-child]:rounded-t-xl [&>*:last-child]:rounded-b-xl";
 const segmentClass =
   "text-ink-2 hover:text-ink aria-pressed:bg-surface aria-pressed:text-ink aria-pressed:shadow-elev-1";
+
+function SetupRow({
+  title,
+  subtitle,
+  disc = true,
+  children,
+}: {
+  readonly title: string;
+  readonly subtitle: string;
+  readonly disc?: boolean;
+  readonly children: ReactNode;
+}) {
+  return (
+    <div className="flex w-full items-center gap-[11px] px-[15px] py-3">
+      {disc ? (
+        <span className="size-[18px] shrink-0 rounded-full border border-dashed border-line-2" />
+      ) : null}
+      <div className="flex min-w-0 flex-1 flex-col">
+        <span className="text-sm font-medium">{title}</span>
+        <span className="mt-px text-xs text-ink-2">{subtitle}</span>
+      </div>
+      <div className="flex shrink-0 items-center">{children}</div>
+    </div>
+  );
+}
 
 function ScenarioControl<Value extends string>({
   label,
@@ -120,7 +146,6 @@ export function LanguageExperiment() {
   const [state, dispatch] = useReducer(reduceLanguage, navigator.languages, initialLanguageState);
   const [osScenario, setOsScenario] = useState("browser");
   const title = useRef<HTMLHeadingElement>(null);
-  const radios = useRef(new Map<LanguageTag, HTMLButtonElement>());
   const selectedLanguage =
     state.prototype === "first-launch"
       ? state.launch.language
@@ -136,20 +161,6 @@ export function LanguageExperiment() {
         : "explicit"
       : state.preferenceStatus;
   const preferenceOptions = [{ value: "automatic", label: copy.automatic }, ...languageOptions];
-
-  function moveRadio(index: number, key: string) {
-    const target =
-      key === "Home"
-        ? 0
-        : key === "End"
-          ? languageOptions.length - 1
-          : (index + (key === "ArrowUp" || key === "ArrowLeft" ? -1 : 1) + languageOptions.length) %
-            languageOptions.length;
-    const option = languageOptions[target];
-    if (!option) return;
-    dispatch({ type: "highlight", language: option.value });
-    radios.current.get(option.value)?.focus();
-  }
 
   return (
     <>
@@ -187,13 +198,13 @@ export function LanguageExperiment() {
           />
           {state.prototype === "first-launch" ? (
             <ScenarioControl
-              label="Selector presentation"
-              value={state.presentation}
+              label="Language screen"
+              value={state.screen}
               options={[
-                { value: "radio", label: "Radio list · 17 rows" },
-                { value: "select", label: "Single Select" },
+                { value: "rule", label: "Product rule · skip when the OS language is supported" },
+                { value: "always", label: "Always show · review strings" },
               ]}
-              onChange={(value) => dispatch({ type: "presentation", value })}
+              onChange={(value) => dispatch({ type: "screen", value })}
             />
           ) : (
             <ScenarioControl
@@ -210,8 +221,11 @@ export function LanguageExperiment() {
           )}
         </div>
         <p className="m-0 text-xs text-ink-2" role="status">
-          OS resolves to {state.osLanguage}. Fake catalogs: en, it, ja only. All other languages use
-          English.
+          OS resolves to {state.osLanguage}
+          {state.osSupported
+            ? " (supported, screen skipped by rule)"
+            : " (unsupported, screen shown)"}
+          . Fake catalogs: en, it, ja only. All other languages use English.
           {catalog.fallback
             ? ` English fallback active for ${selectedLanguage}.`
             : ` Showing ${catalog.language} catalog.`}
@@ -221,112 +235,105 @@ export function LanguageExperiment() {
         <section
           aria-label="First launch prototype"
           lang={catalog.language}
-          className="grid min-h-dvh min-w-0 place-items-center py-10"
+          className="relative h-[720px] min-w-0 overflow-hidden"
         >
-          <div className="setup-panel mx-auto w-full max-w-[680px]">
-            <header className="mb-[22px] flex flex-wrap items-end justify-between gap-x-5 gap-y-2">
-              <h1
-                ref={title}
-                tabIndex={-1}
-                className="text-2xl leading-8 font-semibold tracking-[-0.02em] outline-none"
-              >
-                {state.launch.stage === "language" ? copy.title : copy.setup}
-              </h1>
-            </header>
-            <div className="rounded-xl border border-line bg-surface shadow-elev-1">
-              {state.launch.stage === "setup" ? (
-                <div className="flex flex-col items-start gap-4 p-4">
-                  <p className="m-0 text-sm text-ink-2">
-                    {copy.chosenLanguage}: <span>{state.launch.language}</span>
-                  </p>
+          {state.launch.stage === "setup" ? (
+            <div className="setup-panel mx-auto w-full max-w-[680px] py-10">
+              <header className="mb-[22px] flex flex-wrap items-end justify-between gap-x-5 gap-y-2">
+                <h1
+                  ref={title}
+                  tabIndex={-1}
+                  className="text-2xl leading-8 font-semibold tracking-[-0.02em] outline-none"
+                >
+                  {copy.setupHeading}
+                </h1>
+                <span className="inline-flex h-ctl-sm flex-none items-center gap-2 rounded-full border border-line-2 bg-surface px-row text-xs text-ink-2">
+                  <span
+                    className="size-2 rounded-full bg-line-2 ring-4 ring-line-2/20"
+                    aria-hidden="true"
+                  />
+                  {copy.setupStatus}
+                </span>
+              </header>
+              <div className={setupCardClass}>
+                <SetupRow title={copy.aiTitle} subtitle={copy.aiSubtitle}>
+                  <Button variant="outline" size="sm">
+                    {copy.setUp}
+                  </Button>
+                </SetupRow>
+                <SetupRow title="Intervals.icu" subtitle={copy.intervalsSubtitle}>
+                  <Button variant="outline" size="sm">
+                    {copy.connect}
+                  </Button>
+                </SetupRow>
+                <SetupRow title="Telegram" subtitle={copy.telegramSubtitle}>
+                  <Button variant="outline" size="sm">
+                    {copy.setUp}
+                  </Button>
+                </SetupRow>
+                <SetupRow title={copy.injuryTitle} subtitle={copy.injurySubtitle} disc={false}>
+                  <Select<"none"> items={[{ value: "none", label: copy.injuryNone }]} value="none">
+                    <SelectTrigger aria-label={copy.injuryTitle} className="w-[180px]">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="none">{copy.injuryNone}</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </SetupRow>
+              </div>
+              <footer className="mt-[18px] flex flex-wrap items-center gap-3">
+                <Button size="lg" disabled>
+                  {copy.startCoaching}
+                </Button>
+                <span className="ml-auto text-xs text-ink-2">{copy.footerNote}</span>
+              </footer>
+            </div>
+          ) : (
+            <div className="setup-panel absolute top-1/2 left-1/2 w-[min(420px,calc(100%-32px))] -translate-x-1/2 -translate-y-1/2">
+              <header className="mb-[22px] flex justify-center">
+                <h1
+                  ref={title}
+                  tabIndex={-1}
+                  className="text-center text-2xl leading-8 font-semibold tracking-[-0.02em] outline-none"
+                >
+                  {copy.title}
+                </h1>
+              </header>
+              <div className={setupCardClass}>
+                <div className="p-4">
+                  <Select<LanguageTag>
+                    items={languageOptions}
+                    value={state.launch.language}
+                    onValueChange={(language) => {
+                      if (language !== null) dispatch({ type: "highlight", language });
+                    }}
+                  >
+                    <SelectTrigger aria-label={copy.language} className="w-full min-w-0">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {languageOptions.map((option) => (
+                        <SelectItem key={option.value} value={option.value} lang={option.value}>
+                          {option.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="flex justify-end border-t border-line p-4">
                   <Button
-                    variant="ghost"
                     onClick={() => {
-                      dispatch({ type: "back" });
+                      dispatch({ type: "continue" });
                       requestAnimationFrame(() => title.current?.focus());
                     }}
                   >
-                    {copy.back}
+                    {copy.continue}
                   </Button>
                 </div>
-              ) : (
-                <>
-                  {state.presentation === "radio" ? (
-                    <div role="radiogroup" aria-label={copy.language}>
-                      {languageOptions.map((option, index) => (
-                        <Button
-                          key={option.value}
-                          ref={(element) => {
-                            if (element) radios.current.set(option.value, element);
-                            else radios.current.delete(option.value);
-                          }}
-                          role="radio"
-                          aria-checked={state.launch.language === option.value}
-                          tabIndex={state.launch.language === option.value ? 0 : -1}
-                          variant="ghost"
-                          className="h-ctl w-full min-w-0 justify-between rounded-none px-4 first:rounded-t-xl"
-                          onClick={() => dispatch({ type: "highlight", language: option.value })}
-                          onKeyDown={(event) => {
-                            if (
-                              [
-                                "ArrowDown",
-                                "ArrowUp",
-                                "ArrowLeft",
-                                "ArrowRight",
-                                "Home",
-                                "End",
-                              ].includes(event.key)
-                            ) {
-                              event.preventDefault();
-                              moveRadio(index, event.key);
-                            }
-                          }}
-                        >
-                          <span lang={option.value} className="min-w-0 whitespace-normal text-left">
-                            {option.label}
-                          </span>
-                          {state.launch.language === option.value ? (
-                            <Check aria-hidden="true" className="size-4 shrink-0" />
-                          ) : null}
-                        </Button>
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="p-4">
-                      <Select<LanguageTag>
-                        items={languageOptions}
-                        value={state.launch.language}
-                        onValueChange={(language) => {
-                          if (language !== null) dispatch({ type: "highlight", language });
-                        }}
-                      >
-                        <SelectTrigger aria-label={copy.language} className="w-full min-w-0">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {languageOptions.map((option) => (
-                            <SelectItem key={option.value} value={option.value} lang={option.value}>
-                              {option.label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  )}
-                  <div className="flex justify-end border-t border-line p-4">
-                    <Button
-                      onClick={() => {
-                        dispatch({ type: "continue" });
-                        requestAnimationFrame(() => title.current?.focus());
-                      }}
-                    >
-                      {copy.continue}
-                    </Button>
-                  </div>
-                </>
-              )}
+              </div>
             </div>
-          </div>
+          )}
         </section>
       ) : (
         <div

@@ -20,7 +20,7 @@ export const languageOptions = [
 
 export type LanguageTag = (typeof languageOptions)[number]["value"];
 
-export function resolveOsLanguage(languages: readonly string[]): LanguageTag {
+export function matchOsLanguage(languages: readonly string[]): LanguageTag | null {
   for (const language of languages) {
     let locale: Intl.Locale;
     try {
@@ -38,15 +38,29 @@ export function resolveOsLanguage(languages: readonly string[]): LanguageTag {
     const match = languageOptions.find((option) => option.value === locale.language);
     if (match) return match.value;
   }
-  return "en";
+  return null;
+}
+
+export function resolveOsLanguage(languages: readonly string[]): LanguageTag {
+  return matchOsLanguage(languages) ?? "en";
 }
 
 export type Catalog = {
   readonly title: string;
   readonly continue: string;
-  readonly setup: string;
-  readonly chosenLanguage: string;
-  readonly back: string;
+  readonly setupHeading: string;
+  readonly setupStatus: string;
+  readonly aiTitle: string;
+  readonly aiSubtitle: string;
+  readonly setUp: string;
+  readonly intervalsSubtitle: string;
+  readonly connect: string;
+  readonly telegramSubtitle: string;
+  readonly injuryTitle: string;
+  readonly injurySubtitle: string;
+  readonly injuryNone: string;
+  readonly startCoaching: string;
+  readonly footerNote: string;
   readonly preferences: string;
   readonly language: string;
   readonly automatic: string;
@@ -69,9 +83,19 @@ const catalogs: Record<"en" | "it" | "ja", Catalog> = {
   en: {
     title: "Choose your language",
     continue: "Continue",
-    setup: "Setup",
-    chosenLanguage: "Chosen language",
-    back: "Back to language",
+    setupHeading: "Get your coach running before you can chat",
+    setupStatus: "0 of 3 required ready",
+    aiTitle: "AI that powers your coach",
+    aiSubtitle: "Required — Enduragent doesn't include one",
+    setUp: "Set up",
+    intervalsSubtitle: "Connect or import ride files.",
+    connect: "Connect",
+    telegramSubtitle: "Optional · chat with your coach from your phone",
+    injuryTitle: "Injury status right now",
+    injurySubtitle: "Records your current injury or return context.",
+    injuryNone: "No injury",
+    startCoaching: "Start coaching",
+    footerNote: "Everything stays on this Mac.",
     preferences: "Preferences",
     language: "Language",
     automatic: "Automatic",
@@ -95,9 +119,19 @@ const catalogs: Record<"en" | "it" | "ja", Catalog> = {
   it: {
     title: "Scegli la tua lingua",
     continue: "Continua",
-    setup: "Configurazione",
-    chosenLanguage: "Lingua scelta",
-    back: "Torna alla lingua",
+    setupHeading: "Avvia il tuo coach prima di poter chattare",
+    setupStatus: "0 di 3 requisiti pronti",
+    aiTitle: "L'IA che alimenta il tuo coach",
+    aiSubtitle: "Obbligatoria — Enduragent non ne include una",
+    setUp: "Configura",
+    intervalsSubtitle: "Collega o importa i file delle uscite.",
+    connect: "Collega",
+    telegramSubtitle: "Facoltativo · chatta con il coach dal telefono",
+    injuryTitle: "Stato infortuni attuale",
+    injurySubtitle: "Registra il tuo infortunio o il rientro in corso.",
+    injuryNone: "Nessun infortunio",
+    startCoaching: "Inizia il coaching",
+    footerNote: "Tutto resta su questo Mac.",
     preferences: "Preferenze",
     language: "Lingua",
     automatic: "Automatica",
@@ -121,9 +155,19 @@ const catalogs: Record<"en" | "it" | "ja", Catalog> = {
   ja: {
     title: "言語を選択",
     continue: "続ける",
-    setup: "セットアップ",
-    chosenLanguage: "選択した言語",
-    back: "言語選択に戻る",
+    setupHeading: "チャットを始める前にコーチを準備しましょう",
+    setupStatus: "必須3項目のうち0項目が完了",
+    aiTitle: "コーチを動かすAI",
+    aiSubtitle: "必須 — Enduragentには含まれていません",
+    setUp: "設定する",
+    intervalsSubtitle: "接続するか、ライドファイルを取り込みます。",
+    connect: "接続",
+    telegramSubtitle: "任意 · スマートフォンからコーチとチャット",
+    injuryTitle: "現在の負傷状況",
+    injurySubtitle: "現在の負傷や復帰の状況を記録します。",
+    injuryNone: "負傷なし",
+    startCoaching: "コーチングを始める",
+    footerNote: "すべてこのMacに保存されます。",
     preferences: "環境設定",
     language: "言語",
     automatic: "自動",
@@ -155,11 +199,13 @@ export function catalogFor(tag: LanguageTag): {
 
 export type LanguageState = {
   readonly prototype: "first-launch" | "settings";
-  readonly presentation: "radio" | "select";
+  readonly screen: "rule" | "always";
   readonly osLanguage: LanguageTag;
+  readonly osSupported: boolean;
   readonly launch: {
     readonly stage: "language" | "setup";
     readonly language: LanguageTag;
+    readonly skipped: boolean;
   };
   readonly preference: "automatic" | LanguageTag;
   readonly preferenceStatus: "ready" | "saving" | "unavailable";
@@ -169,11 +215,10 @@ export type LanguageState = {
 
 export type LanguageAction =
   | { readonly type: "prototype"; readonly value: LanguageState["prototype"] }
-  | { readonly type: "presentation"; readonly value: LanguageState["presentation"] }
+  | { readonly type: "screen"; readonly value: LanguageState["screen"] }
   | { readonly type: "os-language"; readonly languages: readonly string[] }
   | { readonly type: "highlight"; readonly language: LanguageTag }
   | { readonly type: "continue" }
-  | { readonly type: "back" }
   | { readonly type: "preference"; readonly value: LanguageState["preference"] }
   | {
       readonly type: "settings-scenario";
@@ -182,13 +227,26 @@ export type LanguageAction =
   | { readonly type: "units"; readonly value: LanguageState["units"] }
   | { readonly type: "appearance"; readonly value: LanguageState["appearance"] };
 
+function launchFor(
+  osLanguage: LanguageTag,
+  osSupported: boolean,
+  screen: LanguageState["screen"],
+): LanguageState["launch"] {
+  return osSupported && screen === "rule"
+    ? { stage: "setup", language: osLanguage, skipped: true }
+    : { stage: "language", language: osLanguage, skipped: false };
+}
+
 export function initialLanguageState(languages: readonly string[]): LanguageState {
-  const osLanguage = resolveOsLanguage(languages);
+  const matched = matchOsLanguage(languages);
+  const osLanguage = matched ?? "en";
+  const osSupported = matched !== null;
   return {
     prototype: "first-launch",
-    presentation: "radio",
+    screen: "rule",
     osLanguage,
-    launch: { stage: "language", language: osLanguage },
+    osSupported,
+    launch: launchFor(osLanguage, osSupported, "rule"),
     preference: "automatic",
     preferenceStatus: "ready",
     units: "metric",
@@ -200,23 +258,30 @@ export function reduceLanguage(state: LanguageState, action: LanguageAction): La
   switch (action.type) {
     case "prototype":
       return { ...state, prototype: action.value };
-    case "presentation":
-      return { ...state, presentation: action.value };
+    case "screen":
+      return {
+        ...state,
+        screen: action.value,
+        launch: launchFor(state.osLanguage, state.osSupported, action.value),
+      };
     case "os-language": {
-      const osLanguage = resolveOsLanguage(action.languages);
-      return { ...state, osLanguage, launch: { stage: "language", language: osLanguage } };
+      const matched = matchOsLanguage(action.languages);
+      const osLanguage = matched ?? "en";
+      const osSupported = matched !== null;
+      return {
+        ...state,
+        osLanguage,
+        osSupported,
+        launch: launchFor(osLanguage, osSupported, state.screen),
+      };
     }
     case "highlight":
       return state.launch.stage === "language"
-        ? { ...state, launch: { stage: "language", language: action.language } }
+        ? { ...state, launch: { stage: "language", language: action.language, skipped: false } }
         : state;
     case "continue":
       return state.launch.stage === "language"
-        ? { ...state, launch: { ...state.launch, stage: "setup" } }
-        : state;
-    case "back":
-      return state.launch.stage === "setup"
-        ? { ...state, launch: { ...state.launch, stage: "language" } }
+        ? { ...state, launch: { ...state.launch, stage: "setup", skipped: false } }
         : state;
     case "preference":
       return state.preferenceStatus === "ready" ? { ...state, preference: action.value } : state;

@@ -43,7 +43,7 @@ async function noOverflow(page: Page) {
   }
 }
 
-test("first launch follows OS scenarios, previews catalogs, and completes both selectors", async ({
+test("first launch skips the screen for a supported OS language and shows it otherwise", async ({
   page,
   colorScheme,
 }, testInfo) => {
@@ -53,50 +53,38 @@ test("first launch follows OS scenarios, previews catalogs, and completes both s
     colorScheme === "dark" ? "dark" : "light",
   );
   const gate = page.getByRole("region", { name: "First launch prototype" });
-  await expect(gate.getByRole("radio")).toHaveCount(17);
-  await expect(gate.getByRole("radio", { name: "English", exact: true })).toBeChecked();
+
+  await choose(page, "OS language", "Italiano · it");
+  await expect(gate.getByRole("heading", { level: 1 })).toHaveText(
+    "Avvia il tuo coach prima di poter chattare",
+  );
+  await expect(gate.getByText("Intervals.icu")).toBeVisible();
+  await expect(gate.getByText(/macOS|lingua/i)).toHaveCount(0);
+  await gate.screenshot({ path: testInfo.outputPath("first-launch-skipped.png") });
+
+  await choose(page, "OS language", "Unsupported · falls back to English");
+  await expect(gate.getByRole("heading", { level: 1 })).toHaveText("Choose your language");
+  await expect(gate.getByRole("combobox")).toContainText("English");
   await expect(gate.getByRole("button")).toHaveCount(1);
   await expect(gate.getByRole("navigation")).toHaveCount(0);
   await noOverflow(page);
-  await gate.screenshot({ path: testInfo.outputPath("first-launch-radio.png") });
-
-  await choose(page, "OS language", "Italiano · it");
-  await expect(gate.getByRole("radio", { name: "Italiano", exact: true })).toBeChecked();
-  await expect(gate.getByRole("heading", { level: 1 })).toHaveText("Scegli la tua lingua");
-  await gate.getByRole("radio", { name: "Italiano", exact: true }).focus();
-  await page.keyboard.press("ArrowDown");
-  await expect(gate.getByRole("radio", { name: "Deutsch", exact: true })).toBeFocused();
-  await expect(gate.getByRole("radio", { name: "Deutsch", exact: true })).toBeChecked();
-  await expect(page.getByText(/English fallback active for de/)).toBeVisible();
-  await page.keyboard.press("Home");
-  await expect(gate.getByRole("radio", { name: "English", exact: true })).toBeFocused();
-  await page.keyboard.press("ArrowUp");
-  await expect(gate.getByRole("radio", { name: "繁體中文", exact: true })).toBeChecked();
-  await page.keyboard.press("ArrowDown");
-  await expect(gate.getByRole("radio", { name: "English", exact: true })).toBeChecked();
-
-  await choose(page, "OS language", "日本語 · ja");
-  await expect(gate.getByRole("radio", { name: "日本語", exact: true })).toBeChecked();
-  await expect(gate.getByRole("heading", { level: 1 })).toHaveText("言語を選択");
-  await gate.getByRole("button").click();
-  await expect(gate.getByText("ja", { exact: true })).toBeVisible();
-  await expect(gate.getByRole("heading", { level: 1 })).toBeFocused();
-  await gate.getByRole("button").click();
-  await expect(gate.getByRole("radio", { name: "日本語", exact: true })).toBeChecked();
-
-  await choose(page, "OS language", "Unsupported · falls back to English");
-  await expect(gate.getByRole("radio", { name: "English", exact: true })).toBeChecked();
-  await choose(page, "Selector presentation", "Single Select");
+  await gate.screenshot({ path: testInfo.outputPath("first-launch-select.png") });
   await gate.getByRole("combobox").click();
   await expect(page.getByRole("option")).toHaveCount(17);
   await page.getByRole("option", { name: "Italiano", exact: true }).click();
   await expect(gate.getByRole("heading", { level: 1 })).toHaveText("Scegli la tua lingua");
-  await noOverflow(page);
-  await gate.screenshot({ path: testInfo.outputPath("first-launch-select.png") });
   await gate.getByRole("button").click();
-  await expect(gate.getByText("it", { exact: true })).toBeVisible();
+  await expect(gate.getByRole("heading", { level: 1 })).toHaveText(
+    "Avvia il tuo coach prima di poter chattare",
+  );
+  await expect(gate.getByRole("heading", { level: 1 })).toBeFocused();
+
+  await choose(page, "OS language", "日本語 · ja");
+  await choose(page, "Language screen", "Always show · review strings");
+  await expect(gate.getByRole("heading", { level: 1 })).toHaveText("言語を選択");
+  await expect(gate.getByRole("combobox")).toContainText("日本語");
   await page.getByRole("button", { name: "Reset", exact: true }).click();
-  await expect(gate.getByRole("radio", { name: "English", exact: true })).toBeChecked();
+  await expect(gate.getByText("Intervals.icu")).toBeVisible();
 });
 
 test("Settings translates the group, preserves row order, and exposes unavailable states", async ({
