@@ -752,7 +752,7 @@
   .composer-dock {
     @apply absolute [position-anchor:--plan-chat-content] [left:anchor(left)] [right:anchor(right)] [bottom:0] z-[4];
     background: linear-gradient(transparent, var(--bg) 22%, var(--bg) 100%);
-    @apply p-[28px_0_14px];
+    @apply p-[0_0_14px];
   }
 
   .chat-surface.has-queued-messages .thread {
